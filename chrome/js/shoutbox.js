@@ -46,8 +46,10 @@ $(function(){
 		var splitList = $("#array_content").val().split(',');
 		var newArray = [];
 		for(i = 0; i < splitList.length; i++) {
-			if(splitList[i].indexOf(' ') == -1 || blacklist_state == "users") {
-				newArray.push(splitList[i]);
+			if(splitList[i] != '') {
+				if(splitList[i].indexOf(' ') == -1) {
+					newArray.push(splitList[i]);
+				}
 			}
 		}
 		parsed_blacklist[blacklist_state] = newArray;

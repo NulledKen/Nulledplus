@@ -109,13 +109,16 @@ $(function(){
 					for(i = 0; i < parsed_blacklist.words.length; i++) {
 						if(parsed_blacklist.words[i] != '' && parsed_blacklist.words[i].includes(' ') == false) {
 							if(shoutMessage.text().includes(parsed_blacklist.words[i])) {
-								$(this).fadeOut("slow");
+								$(this).fadeOut("fast");
 								console.log(">> Blocked shout by " + shoutAuthor + ", contained blacklisted word: " + parsed_blacklist.words[i]);
 								shout_hidden = true;
 							}
 						}
 					}
 					if(!shout_hidden) {
+						if($(this).is('visible') == false) {
+							$(this).fadeIn("slow");
+						}
 						console.log("> Searching for your tags in shout");
 						$(shoutMessage).children("a").each(function(){
 							if($(this).attr("href").split("#")[0].split("!")[1] == userID) {

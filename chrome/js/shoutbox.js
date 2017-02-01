@@ -17,7 +17,7 @@ $(function(){
 
 	var twitch_emotes;
 	$.getJSON("https://twitchemotes.com/api_cache/v2/global.json", function(json){
-		twitch_emotes = json;
+		twitch_emotes = json.emotes;
 	});
 
 	// Interface
@@ -141,7 +141,7 @@ $(function(){
 						console.log("> Searching for twitch emotes");
 						Object.keys(twitch_emotes).forEach(function (key) {
 							if(shoutMessage.text().includes(key)) {
-								shoutMessage.text(shoutMessage.text().replace(new RegExp(key, 'g'), "XD" + key + "XD"));
+								shoutMessage.html(shoutMessage.html().replace(new RegExp(key, 'g'), "<img src='https://static-cdn.jtvnw.net/emoticons/v1/" + twitch_emotes[key].image_id + "/1.0'/>"));
 							}
 						});
 					}

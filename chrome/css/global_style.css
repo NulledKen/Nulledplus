@@ -33,3 +33,9 @@ input#sbplus-modal-input {
 div.popupWrapper {
 	border-radius: 6px;
 }
+h3#insert_title {
+	text-transform: capitalize;
+}
+.modal {
+	border-radius: 7px;
+}

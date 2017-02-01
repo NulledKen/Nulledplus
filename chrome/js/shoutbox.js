@@ -10,21 +10,24 @@ $(function(){
 	var blacklist_state = "users";
 	var insert_state = "";
 
-	var tab_focused = true;
-	document.addEventListener('visibilitychange', function(){
-	    tab_focused = !tab_focused;
-	});
-
 	var twitch_emotes;
 	$.getJSON("https://twitchemotes.com/api_cache/v2/global.json", function(json){
 		twitch_emotes = json.emotes;
 	});
 
+	var tab_focused = true;
+	window.onfocus = function () {
+	  tab_focused = !tab_focused;
+	};
+
+	window.onblur = function () {
+	  tab_focused = !tab_focused;
+	};
 	// Interface
 	$("div#index_stats").prepend("<div class='ipsBlockOuter' id='nulledplus_options_div' style='display: none;'><div id='nulledplus_options' class='maintitle'>Nulled+ Options</div><div id='nulledplus_options_content' style='display: none; padding: 10px;'><div><input type='button' value='users' name='blacklist_flipswitch' class='input_submit mpr checked' style='width: 48%;'/>&nbsp;<input type='button' value='words' class='input_submit' name='blacklist_flipswitch' style='width: 48%;'/></div><br><span id='blacklist_desc'>Blacklisted Users</span><textarea id='array_content' style='width: 93%; margin-top: 12px;'></textarea><br><input type='button' class='input_submit mpr' id='save_blacklist' value='Save' style='float: right; margin-right: 10px;'><br><br><input type='checkbox' id='mark_on_tag'> Mark messages where i'm tagged<br><input type='checkbox' id='sound_on_tag'> Make sound when tagged (Inactive tab)</div></div>");
 	$("div#socket_chat").css("margin-bottom", "0px");
 	$("h3.maintitle:first").append("<input type='button' id='recheck_shoutbox' style='float: right; padding: 3px; border-radius: 3px; background-color: #252525; border-color: #353535; border-style: solid; color: #afafaf;' value='Recheck Shoutbox'/>");
-	$("div#socket_chat").after("<div class='category_block block_wrap side_extra'><div class='extra_buttons'><button class='input_submit mpr' value='insert_youtube'><img class='button_image' src='" + chrome.extension.getURL('images/youtube_icon.png') + "'/></button>&nbsp;<button class='input_submit mpr' value='insert_image'><img class='button_image' src='" + chrome.extension.getURL('images/camera_icon.png') + "'/></button></div></div><br>");
+	$("div#socket_chat").after("<div class='category_block block_wrap side_extra'><div class='extra_buttons'><button class='input_submit mpr' value='insert_youtube'><img class='button_image' src='" + chrome.extension.getURL('images/youtube_icon.png') + "'/></button>&nbsp;<button class='input_submit mpr' value='insert_image'><img class='button_image' src='" + chrome.extension.getURL('images/image_icon.png') + "'/></button></div></div><br>");
 	$("div.content").prepend("<div id='sbplus_modal' class='sb-modal fadein-transition' style='display: none;'><div class='popupWrapper'><div class='popupInner'><h3 id='insert_title'>xd</h3><div><div class='sbplus-modal-content ipsPad ipsForm_center'><span id='sbplus-modal-title'></span><br><br><input type='text' class='input_text' id='sbplus-modal-input'/><br><br><a id='sbplus-modal-add' class='input_submit mpr' rel='modal:close'>Add</a>&nbsp;<a id='sbplus-modal-close' class='input_submit mpr' rel='modal:close'>Close</a></div></div></div></div></div>");
 	// Interface startup
 	$("#sound_on_tag").prop("checked", (localStorage["tagsound"]  == "true" ? true : false));

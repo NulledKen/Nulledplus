@@ -52,6 +52,7 @@ $(function(){
 		}
 		parsed_blacklist[blacklist_state] = newArray;
 		localStorage.setItem("blacklist", JSON.stringify(parsed_blacklist));
+		$("#recheck_shoutbox").click();
 	});
 	$("#recheck_shoutbox").click(function(){
 		$("tr.checked").each(function(){

@@ -39,3 +39,6 @@ h3#insert_title {
 .modal {
 	border-radius: 7px;
 }
+body#ipboard_body {
+	background: #151515;
+}

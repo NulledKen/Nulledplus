@@ -1,5 +1,9 @@
-refresh_notifications();
 $(function(){
+	$("a#inbox_link, a#notify_link").click(function(){
+		document.title = "Nulled - Expect the unexpected";
+	});
+	// TODO: Figure out why it moves the notifications icons;
+	refresh_notifications();
 	setInterval(function(){
 		refresh_notifications();
 	}, 1000);

@@ -14,6 +14,10 @@ $(function(){
 	$.getJSON("https://twitchemotes.com/api_cache/v2/global.json", function(json){
 		twitch_emotes = json.emotes;
 	});
+	var btwitch_emotes;
+	$.getJSON("https://api.betterttv.net/2/emotes", function(json){
+		btwitch_emotes = json.emotes;
+	});
 
 	var tab_focused = true;
 	window.onfocus = function () {
@@ -147,6 +151,11 @@ $(function(){
 						Object.keys(twitch_emotes).forEach(function (key) {
 							if(shoutMessage.text().includes(key)) {
 								shoutMessage.html(shoutMessage.html().replace(new RegExp(key, 'g'), "<img src='https://static-cdn.jtvnw.net/emoticons/v1/" + twitch_emotes[key].image_id + "/1.0'/>"));
+							}
+						});
+						btwitch_emotes.forEach(function (emote) {
+							if(shoutMessage.text().includes(emote.code)) {
+								shoutMessage.html(shoutMessage.html().replace(new RegExp(emote.code, 'g'), "<img src='https://cdn.betterttv.net/emote/" + emote.id + "/1x'/>"));
 							}
 						});
 					}

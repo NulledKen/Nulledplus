@@ -42,3 +42,13 @@ h3#insert_title {
 body#ipboard_body {
 	background: #151515;
 }
+div.section_update {
+	margin-bottom: 5px;
+	padding: 4px;
+}
+img.block_user {
+	height: 15px;
+	width: 15px;
+	margin-right: 8px;
+	cursor: pointer;
+}

@@ -34,7 +34,7 @@ $(function(){
 	  tab_focused = !tab_focused;
 	};
 	// Interface
-	$("div#index_stats").prepend("<div class='ipsBlockOuter' id='nulledplus_options_div' style='display: none;'><div id='nulledplus_options' class='maintitle'>Nulled+ Options</div><div id='nulledplus_options_content' style='display: none; padding: 10px;'><div><input type='button' value='users' name='blacklist_flipswitch' class='input_submit mpr checked' style='width: 48%;'/>&nbsp;<input type='button' value='words' class='input_submit' name='blacklist_flipswitch' style='width: 48%;'/></div><br><span id='blacklist_desc'>Blacklisted Users</span>&nbsp; [ <input type='radio' id='fade' name='hide_method'/> Fade <input type='radio' id='slide' name='hide_method'/> Slide <input type='radio' id='hide' name='hide_method'/> Hide ]<textarea id='array_content' style='width: 93%; margin-top: 12px;'></textarea><br><input type='button' class='input_submit mpr' id='save_blacklist' value='Save' style='float: right; margin-right: 10px;'><br><br><input type='checkbox' id='mark_on_tag'> Mark messages where i'm tagged<br><input type='checkbox' id='sound_on_tag'> Make sound when tagged (Inactive tab)</div></div>");
+	$("div#index_stats").prepend("<div class='ipsBlockOuter' id='nulledplus_options_div' style='display: none;'><div id='nulledplus_options' class='maintitle'>Nulled+ Options</div><div id='nulledplus_options_content' style='display: none; padding: 10px;'><div><input type='button' value='users' name='blacklist_flipswitch' class='input_submit mpr checked' style='width: 48%;'/>&nbsp;<input type='button' value='words' class='input_submit' name='blacklist_flipswitch' style='width: 48%;'/></div><br><span id='blacklist_desc'>Blacklisted Users</span>&nbsp; ( <input type='radio' id='fade' name='hide_method'/> Fade <input type='radio' id='slide' name='hide_method'/> Slide <input type='radio' id='hide' name='hide_method'/> Hide )<textarea id='array_content' style='width: 93%; margin-top: 12px;'></textarea><br><input type='button' class='input_submit mpr' id='save_blacklist' value='Save' style='float: right; margin-right: 10px;'><br><br><input type='checkbox' id='mark_on_tag'> Mark messages where i'm tagged<br><input type='checkbox' id='sound_on_tag'> Make sound when tagged (Inactive tab)</div></div>");
 	$("div#socket_chat").css("margin-bottom", "0px");
 	$("div#socket_chat").after("<div class='category_block block_wrap side_extra'><div class='extra_buttons'><button class='input_submit mpr' value='insert_youtube'><img class='button_image' src='" + chrome.extension.getURL('images/youtube_icon.png') + "'/></button>&nbsp;<button class='input_submit mpr' value='insert_image'><img class='button_image' src='" + chrome.extension.getURL('images/image_icon.png') + "'/></button></div></div><br>");
 	$("div#content").prepend("<div id='sbplus_modal' class='sb-modal fadein-transition' style='display: none;'><div class='popupWrapper'><div class='popupInner'><h3 id='insert_title'>xd</h3><div><div class='sbplus-modal-content ipsPad ipsForm_center'><span id='sbplus-modal-title'></span><br><br><input type='text' class='input_text' id='sbplus-modal-input'/><br><br><a id='sbplus-modal-add' class='input_submit mpr' rel='modal:close'>Add</a>&nbsp;<a id='sbplus-modal-close' class='input_submit mpr' rel='modal:close'>Close</a></div></div></div></div></div>");
@@ -91,6 +91,15 @@ $(function(){
 		$("input#sbplus-modal-input").val("");
 		$("input.shoutBoxInputMessage").val($("input.shoutBoxInputMessage").val() + inserted_tag);
 	});
+	$(document).on('click', 'a.block_user', function(){
+		parsed_blacklist[blacklist_state].push($(this).prop("name"));
+		localStorage.setItem("blacklist", JSON.stringify(parsed_blacklist));
+		array_to_textarea("users");
+		// Recheck shoutbox
+		$("tr.checked").each(function(){
+			$(this).removeClass("checked");
+		});
+	});
 	// Functions
 	function array_to_textarea(blacklist_state) {
 		$("#array_content").val("");
@@ -142,6 +151,11 @@ $(function(){
 							// Show if hidden (Added users to blacklist and then removed: shows back up)
 							if($(this).is('visible') == false)
 								$(this).fadeIn("slow");
+							// Add block user
+							if(!$(this).contents().find("img.block_user").length) {
+								target = $(this).children()[0].children[0];
+								$(target).before("<a name='" + shoutAuthor + "' class='block_user' title='Block " + shoutAuthor + "'><img src='" + chrome.extension.getURL("images/block_icon.png") + "' class='block_user'></a>");
+							}
 							// Tags in message
 							$(shoutMessage).children("a").each(function(){
 								if($(this).attr("href").split("#")[0].split("!")[1] == userID) {

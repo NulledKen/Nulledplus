@@ -25,7 +25,7 @@ $(function(){
 	// Overly complicated start and stop intervals for refreshing sections
 	function start_interval(state) {
 		if(state == "recent_topics") {
-			$("ul.ipsList_withminiphoto")[0].parent().load(location.href + " ul.ipsList_withminiphoto");
+			$("ul.ipsList_withminiphoto").eq(0).parent().load(location.href + " ul.ipsList_withminiphoto");
 			topics_interval = setTimeout(function(){ start_interval(state) }, 10000);
 		}
 		else {

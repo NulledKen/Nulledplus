@@ -25,14 +25,24 @@ $(function(){
 		json_loaded();
 	});
 
-	var tab_focused = true;
-	window.onfocus = function () {
-	  tab_focused = !tab_focused;
-	};
-
-	window.onblur = function () {
-	  tab_focused = !tab_focused;
-	};
+	var vis = (function(){
+	    var stateKey, eventKey, keys = {
+	        hidden: "visibilitychange",
+	        webkitHidden: "webkitvisibilitychange",
+	        mozHidden: "mozvisibilitychange",
+	        msHidden: "msvisibilitychange"
+	    };
+	    for (stateKey in keys) {
+	        if (stateKey in document) {
+	            eventKey = keys[stateKey];
+	            break;
+	        }
+	    }
+	    return function(c) {
+	        if (c) document.addEventListener(eventKey, c);
+	        return !document[stateKey];
+	    }
+	})();
 	// Interface
 	$("div#index_stats").prepend("<div class='ipsBlockOuter' id='nulledplus_options_div' style='display: none;'><div id='nulledplus_options' class='maintitle'>Nulled+ Options</div><div id='nulledplus_options_content' style='display: none; padding: 10px;'><div><input type='button' value='users' name='blacklist_flipswitch' class='input_submit mpr checked' style='width: 48%;'/>&nbsp;<input type='button' value='words' class='input_submit' name='blacklist_flipswitch' style='width: 48%;'/></div><br><span id='blacklist_desc'>Blacklisted Users</span>&nbsp; ( <input type='radio' id='fade' name='hide_method'/> Fade <input type='radio' id='slide' name='hide_method'/> Slide <input type='radio' id='hide' name='hide_method'/> Hide )<textarea id='array_content' style='width: 93%; margin-top: 12px;'></textarea><br><input type='button' class='input_submit mpr' id='save_blacklist' value='Save' style='float: right; margin-right: 10px;'><br><br><input type='checkbox' id='mark_on_tag'> Mark messages where i'm tagged<br><input type='checkbox' id='sound_on_tag'> Make sound when tagged (Inactive tab)</div></div>");
 	$("div#socket_chat").css("margin-bottom", "0px");
@@ -153,8 +163,8 @@ $(function(){
 								$(this).fadeIn("slow");
 							// Add block user
 							if(!$(this).contents().find("img.block_user").length) {
-								target = $(this).children()[0].children[0];
-								$(target).before("<a name='" + shoutAuthor + "' class='block_user' title='Block " + shoutAuthor + "'><img src='" + chrome.extension.getURL("images/block_icon.png") + "' class='block_user'></a>");
+								//target = $(this).children()[0].children[0];
+								$(this).children().eq(0).children().eq(0).before("<a name='" + shoutAuthor + "' class='block_user' title='Block " + shoutAuthor + "'><img src='" + chrome.extension.getURL("images/block_icon.png") + "' class='block_user'></a>");
 							}
 							// Tags in message
 							$(shoutMessage).children("a").each(function(){
@@ -162,7 +172,7 @@ $(function(){
 									if($("input#mark_on_tag").prop("checked"))
 										$(shoutMessage).parent().css("background-color", "rgba(189, 34, 34, 0.27)");
 									if($("input#sound_on_tag").prop('checked')) {
-										if(tab_focused == false) {
+										if(!vis()) {
 											var notification = new Audio();
 											notification.src = chrome.extension.getURL('sounds/notification.mp3');
 											notification.play();

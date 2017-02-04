@@ -1,0 +1,54 @@
+input.checked {
+	background-color: white;
+	color: #353535;
+}
+input.checked:hover {
+	background-color: white;
+	color: #353535;
+}
+span#blacklist_desc, span#sbplus-modal-title {
+	text-transform: capitalize;
+}
+div.extra_buttons {
+	background-color: #252525;
+	padding: 5px;
+}
+button > img {
+	height: 16px;
+	width: 24px;
+}
+div.side_extra {
+	width: 106px;
+	float: right;
+}
+div#sbplus-modal {
+	border-radius: 6px;
+}
+span#sbplus-modal-title {
+	font-size: 14px;
+}
+input#sbplus-modal-input {
+	width: 80%;
+}
+div.popupWrapper {
+	border-radius: 6px;
+}
+h3#insert_title {
+	text-transform: capitalize;
+}
+.modal {
+	border-radius: 7px;
+}
+body#ipboard_body {
+	background: #151515;
+}
+div.section_update {
+	margin-bottom: 5px;
+	padding: 4px;
+}
+img.block_user {
+	height: 15px;
+	width: 15px;
+	margin-right: 8px;
+	cursor: pointer;
+}

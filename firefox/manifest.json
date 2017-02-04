@@ -1,0 +1,24 @@
+{
+	"manifest_version": 2,
+	"name": "Nulled+",
+	"description": "Make Nulled Great Again",
+	"version": "1.0",
+	"content_scripts": [
+		{
+			"matches": ["https://www.nulled.to/*"],
+			"css": ["css/global_style.css"],
+			"js": ["lib/jquery-3.1.1.min.js", "js/global.js"]
+		},
+		{
+			"matches": ["https://www.nulled.to/", "https://www.nulled.to/index.php#*", "https://www.nulled.to/index.php"],
+			"js": ["lib/jquery.modal.min.js", "js/shoutbox.js", "js/latest_posts.js"]
+		}
+	],
+	"permissions": [
+		"storage"
+	],
+	"web_accessible_resources": [
+		"sounds/*.mp3",
+		"images/*"
+	]
+}

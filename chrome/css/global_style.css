@@ -52,3 +52,19 @@ img.block_user {
 	margin-right: 8px;
 	cursor: pointer;
 }
+button.select_all, button.save_file {
+	float: right;
+	position: relative;
+	margin-left: 5px;
+}
+div.select_all {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 3px;
+}
+div.hiddencontent-unhidden {
+	margin-top: 3px;
+}
+div.hiddencontent-unhidden::selection, div.hiddencontent-unhidden > a::selection {
+	background-color: #0f5579;
+}

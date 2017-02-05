@@ -162,10 +162,8 @@ $(function(){
 							if($(this).is('visible') == false)
 								$(this).fadeIn("slow");
 							// Add block user
-							if(!$(this).contents().find("img.block_user").length) {
-								//target = $(this).children()[0].children[0];
+							if(!$(this).contents().find("img.block_user").length)
 								$(this).children().eq(0).children().eq(0).before("<a name='" + shoutAuthor + "' class='block_user' title='Block " + shoutAuthor + "'><img src='" + chrome.extension.getURL("images/block_icon.png") + "' class='block_user'></a>");
-							}
 							// Tags in message
 							$(shoutMessage).children("a").each(function(){
 								if($(this).attr("href").split("#")[0].split("!")[1] == userID) {

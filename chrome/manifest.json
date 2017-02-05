@@ -12,6 +12,10 @@
 		{
 			"matches": ["https://www.nulled.to/", "https://www.nulled.to/index.php#*", "https://www.nulled.to/index.php"],
 			"js": ["lib/jquery.modal.min.js", "js/shoutbox.js", "js/latest_posts.js"]
+		},
+		{
+			"matches": ["https://www.nulled.to/topic/*"],
+			"js": ["lib/FileSaver.min.js", "js/select_all.js"]
 		}
 	],
 	"permissions": [

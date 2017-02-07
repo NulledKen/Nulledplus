@@ -11,7 +11,11 @@
 		},
 		{
 			"matches": ["https://www.nulled.to/", "https://www.nulled.to/index.php#*", "https://www.nulled.to/index.php"],
-			"js": ["lib/jquery.modal.min.js", "js/shoutbox.js", "js/latest_posts.js"]
+			"js": ["lib/jquery-ui.min.js", "lib/socket.io-1.4.5.js", "js/shoutbox.js", "js/latest_posts.js"]
+		},
+		{
+			"matches": ["https://www.nulled.to/topic/*"],
+			"js": ["lib/FileSaver.min.js", "js/select_all.js"]
 		}
 	],
 	"permissions": [
@@ -19,6 +23,8 @@
 	],
 	"web_accessible_resources": [
 		"sounds/*.mp3",
-		"images/*"
-	]
+		"images/*",
+		"js/extract_chatview.js"
+	],
+	"run_at": "document_end"
 }

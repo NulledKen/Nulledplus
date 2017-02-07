@@ -6,7 +6,7 @@ input.checked:hover {
 	background-color: white;
 	color: #353535;
 }
-span#blacklist_desc, span#sbplus-modal-title {
+span#blacklist_desc, span#sbplus-insert-title {
 	text-transform: capitalize;
 }
 div.extra_buttons {
@@ -24,7 +24,7 @@ div.side_extra {
 div#sbplus-modal {
 	border-radius: 6px;
 }
-span#sbplus-modal-title {
+span#sbplus-insert-title {
 	font-size: 14px;
 }
 input#sbplus-modal-input {
@@ -46,10 +46,11 @@ div.section_update {
 	margin-bottom: 5px;
 	padding: 4px;
 }
-img.block_user {
+img.block_user, img.tag_user {
 	height: 15px;
 	width: 15px;
-	margin-right: 8px;
+	margin-right: 3px;
+	margin-left: 3px;
 	cursor: pointer;
 }
 button.select_all, button.save_file {
@@ -67,4 +68,79 @@ div.hiddencontent-unhidden {
 }
 div.hiddencontent-unhidden::selection, div.hiddencontent-unhidden > a::selection {
 	background-color: #0f5579;
+}
+div.nulledplus_shoutbox > div.nulledplus_shoutbox_table {
+	max-height: 360px;
+	overflow-y: scroll;
+}
+td.block, td.tag, td.date {
+	width: 30px;
+}
+td.message {
+	background-color: transparent;
+}
+td.user {
+	width: 100px;
+}
+tr.odd {
+	background-color: #252525;
+}
+tr.tagged {
+	background-color: rgba(107, 0, 0, 0.34);
+}
+a[href^="/!"] {
+	background-color: black;
+	padding: 3px;
+	border-radius: 3px;
+	margin-left: 2px;
+}
+div#nulled_emotes, div#twitch_emotes, div#btwitch_emotes {
+	max-height: 80px;
+	height: 80px;
+	background-color: #151515;
+	overflow-y: scroll;
+}
+img.shoutbox_emote {
+	cursor: pointer;
+}
+::-webkit-scrollbar-thumb {
+	border-radius: 3px;
+	border: solid 1px black;
+}
+.nulledplus_dialog {
+	background-color: #252525;
+	padding: 3px;
+	border: 1px solid black;
+}
+.ui-dialog-titlebar {
+	background-color: #151515;
+	padding: 5px;
+	border: 1px solid #252525;
+}
+.ui-dialog-titlebar-close {
+	display: inline-block;
+	float: right;
+	background: #353535;
+    text-transform: uppercase;
+    padding: 4px 5px;
+    font-size: 10px;
+    color: #fff;
+    border-radius: 2px;
+    border: 0px;
+	color: #fff;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000;
+}
+div.nulledplus_shoutbox_inputs {
+	width: auto;
+	border-top: 1px;
+	border-bottom: 0px;
+	border-right: 0px;
+	border-left: 0px;
+	border-style: solid;
+	border-color: #252525;
+	padding: 6px;
+}
+input.nulledplus_shoutbox_input {
+	width: 55%;
 }

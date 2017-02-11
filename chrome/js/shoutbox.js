@@ -419,7 +419,7 @@ $(function(){
 		}
 		// Add edit/ remove message controls
 		if(actualDisplayName == userName) {
-			added.children("td.controls").append("<img src='" + chrome.extension.getURL("images/edit_icon.png") + "' class='control_icon edit_shout'/>&nbsp;";//"<img src='" + chrome.extension.getURL("images/remove_icon.png") + "' class='control_icon' onclick='chat.sendDeleteShout(\"" + data.shout_id + "\");'/>");
+			added.children("td.controls").append("<img src='" + chrome.extension.getURL("images/edit_icon.png") + "' class='control_icon edit_shout'/>&nbsp;");//"<img src='" + chrome.extension.getURL("images/remove_icon.png") + "' class='control_icon' onclick='chat.sendDeleteShout(\"" + data.shout_id + "\");'/>");
 			added.children("td.controls").css("background-color", "black");
 		}
 		// Check if message passes blacklist filters

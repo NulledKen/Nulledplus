@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "Nulled+",
 	"description": "Make Nulled Great Again",
-	"version": "1.1",
+	"version": "1.2",
 	"content_scripts": [
 		{
 			"matches": ["https://www.nulled.to/*"],

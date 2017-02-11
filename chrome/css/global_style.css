@@ -46,7 +46,7 @@ div.section_update {
 	margin-bottom: 5px;
 	padding: 4px;
 }
-img.block_user, img.tag_user {
+img.block_user, img.tag_user, img.control_icon {
 	height: 15px;
 	width: 15px;
 	margin-right: 3px;
@@ -71,7 +71,11 @@ div.hiddencontent-unhidden::selection, div.hiddencontent-unhidden > a::selection
 }
 div.nulledplus_shoutbox > div.nulledplus_shoutbox_table {
 	max-height: 360px;
+	height: 360px;
 	overflow-y: scroll;
+}
+td.date {
+	padding-left: 10px;
 }
 td.block, td.tag, td.date {
 	width: 30px;
@@ -143,4 +147,147 @@ div.nulledplus_shoutbox_inputs {
 }
 input.nulledplus_shoutbox_input {
 	width: 55%;
+}
+img.remove_item {
+	width: 14px;
+	height: 14px;
+	margin-right: 6px;
+	cursor: pointer;
+}
+ul.shoutbox_blacklist, div.main > ul {
+	background-color: rgba(0,0,0,0.2);
+	max-height: 150px;
+	height: 150px;
+	overflow-y: scroll;
+	padding: 3px;
+	border: solid 1px black;
+}
+input.added_item {
+	width: 80%;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+ul.shoutbox_blacklist > li, div.main > ul > li {
+	width: 100%;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	border-radius: 3px;
+}
+ul.shoutbox_blacklist > li > img {
+	margin-right: 10px;
+	margin-left: 5px;
+}
+div.main > ul > li {
+	background-color: #151515;
+}
+div.main > ul > li > span {
+	margin-left: 5px;
+}
+ul.shoutbox_blacklist > li:nth-child(odd), div.main > ul > li:nth-child(odd) {
+	background-color: #252525;
+}
+ul.nulledplus_context_menu {
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid black;
+    white-space: nowrap;
+    font-family: sans-serif;
+    background: #151515;
+    color: #CCCCCC;
+    border-radius: 5px;
+}
+
+ul.nulledplus_context_menu li {
+    padding: 8px 12px;
+}
+
+ul.nulledplus_context_menu li:not(.user) {
+	cursor: pointer;
+}
+
+ul.nulledplus_context_menu li.user {
+	background-color: black;
+	font-weight: bold;
+	text-align: center;
+}
+ul.nulledplus_context_menu li.total_shouts {
+	background-color: #353535;
+	font-weight: bold;
+	text-align: center;
+	display: none;
+}
+ul.nulledplus_context_menu li.user span.actual_user {
+	text-decoration: underline;
+}
+ul.nulledplus_context_menu li:not(.user):not(.total_shouts):hover {
+    background-color: #252525;
+}
+td.user > a {
+	border-radius: 3px;
+	padding: 3px;
+}
+div[role="dialog"] {
+	z-index: 99999;
+}
+div.description {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 5px;
+}
+div.shoutbox_loading {
+	margin: 0 auto;
+	vertical-align: middle;
+	text-align: center;
+	margin-top: 120px;
+}
+input.reputation_button {
+	padding: 5px;
+	border-radius: 3px;
+	margin-right: 6px;
+	border: none;
+	text-transform: capitalize;
+}
+input.reputation_button:disabled {
+	border: 2px solid #0f5579;
+	color: black;
+}
+div.change_reputation {
+	background-color: #151515;
+	padding: 6px;
+}
+div.reputation_state {
+	background-color: #252525;
+	margin: 0 auto;
+	padding: 3px;
+	margin-bottom: 5px;
+	border-radius: 3px;
+	width: 62%;
+}
+td.controls {
+	width: 50px;
+}
+div.nulledplus_status {
+	background-color: #151515;
+	padding: 6px;
+	border-radius: 3px;
+	border: 2px solid black;
+	max-width: 425px;
+}
+span.nulledplus_state_final {
+	color: white;
+}
+div.bans_list {
+	background-color: #151515;
+	max-height: 160px;
+	height: 160px;
+	overflow-y: scroll;
+}
+h3#emotes_title {
+	background-color: #353535;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	border: 1px solid #353535;
 }

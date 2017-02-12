@@ -10,7 +10,7 @@ setTimeout(function() {
 				array.push(message);
 			});
 			document.dispatchEvent(new CustomEvent('nulledplus_pass_recheck_shoutbox', {
-				detail: array
+				detail: [array, chat.isMod]
 			}));
 		});
 	};

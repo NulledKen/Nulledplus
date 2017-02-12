@@ -89,7 +89,7 @@ $(function(){
 	})();
 	/* Interface */
 	// Add new shoutbox
-	$("div#categories").prepend("<div class='category_block block_wrap'><div class='nulledplus_shoutbox'><h3 class='maintitle'>Nulledplus Shoutbox</h3><div class='nulledplus_shoutbox_table'><div class='shoutbox_loading'><img src='" + chrome.extension.getURL("images/loading.gif") + "' id='shoutbox_loading'/></div><table><tbody></tbody></table></div><div class='nulledplus_shoutbox_inputs'><div style='text-align: center;'><input type='text' maxlength='255' class='input_text nulledplus_shoutbox_input' id='shoutbox_input' placeholder='Shoutbox Message'/>&nbsp;<input type='button' value='Send' class='input_submit mpr' id='nulledplus_shoutbox_send' onclick='chat.sendMessage(document.getElementById(\"shoutbox_input\").value); document.getElementById(\"shoutbox_input\").value = \"\";'/>&nbsp;<input type='button' class='input_submit mpr' onclick='document.getElementById(\"shoutbox_input\").value = \"\";' value='Clear'/>&nbsp;<input type='button' id='shoutbox_emotes' class='input_submit mpr' value='Emotes'/>&nbsp;<input type='button' id='shoutbox_banlist' value='Ban List' class='input_submit mpr'/>&nbsp;<button class='input_submit mpr' value='insert_youtube' style='height: 27px;'><img class='button_image' src='" + chrome.extension.getURL('images/youtube_icon.png') + "'/></button>&nbsp;<button class='input_submit mpr' value='insert_image' style='height: 27px;'><img class='button_image' src='" + chrome.extension.getURL('images/image_icon.png') + "'/></button></div></div></div></div>");
+	$("div#categories").prepend("<div class='category_block block_wrap'><div class='nulledplus_shoutbox'><h3 class='maintitle'>Nulledplus Shoutbox</h3><div class='nulledplus_shoutbox_table'><div class='shoutbox_loading'><img src='" + chrome.extension.getURL("images/loading.gif") + "' id='shoutbox_loading'/></div><table style='border-collapse: collapse;'><tbody></tbody></table></div><div class='nulledplus_shoutbox_inputs'><div style='text-align: center;'><input type='text' maxlength='255' class='input_text nulledplus_shoutbox_input' id='shoutbox_input' placeholder='Shoutbox Message'/>&nbsp;<input type='button' value='Send' class='input_submit mpr' id='nulledplus_shoutbox_send' onclick='chat.sendMessage(document.getElementById(\"shoutbox_input\").value); document.getElementById(\"shoutbox_input\").value = \"\";'/>&nbsp;<input type='button' class='input_submit mpr' onclick='document.getElementById(\"shoutbox_input\").value = \"\";' value='Clear'/>&nbsp;<input type='button' id='shoutbox_emotes' class='input_submit mpr' value='Emotes'/>&nbsp;<input type='button' id='shoutbox_banlist' value='Ban List' class='input_submit mpr'/>&nbsp;<button class='input_submit mpr' value='insert_youtube' style='height: 27px;'><img class='button_image' src='" + chrome.extension.getURL('images/youtube_icon.png') + "'/></button>&nbsp;<button class='input_submit mpr' value='insert_image' style='height: 27px;'><img class='button_image' src='" + chrome.extension.getURL('images/image_icon.png') + "'/></button></div></div></div></div>");
 	// Remove original shoutbox
 	$("div#socket_chat").remove();
 	// Custom context menu
@@ -408,7 +408,7 @@ $(function(){
 		// Styling odd messages
 		if(odd)
 			added.addClass("odd");
-		odd = !odd;
+		//odd = !odd;
 		// Check if you're tagged
 		var tags = $("<div>" + data.msg + "</div>").children("a[href^=\'/!\']");
 		for(i = 0; i < tags.length; i++) {
@@ -418,9 +418,15 @@ $(function(){
 			}
 		}
 		// Add edit/ remove message controls
-		if(actualDisplayName == userName) {
-			added.children("td.controls").append("<img src='" + chrome.extension.getURL("images/edit_icon.png") + "' class='control_icon edit_shout'/>&nbsp;");//"<img src='" + chrome.extension.getURL("images/remove_icon.png") + "' class='control_icon' onclick='chat.sendDeleteShout(\"" + data.shout_id + "\");'/>");
-			added.children("td.controls").css("background-color", "black");
+		var controls = added.children("td.controls");
+		if(actualDisplayName == userName || isMod) {
+			controls.append("<img src='" + chrome.extension.getURL("images/edit_icon.png") + "' class='control_icon edit_shout'/>&nbsp;");
+			controls.css("background-color", "black");
+		}
+		if(isMod) {
+			controls.css("width", "73px");
+			controls.append("<img src='" + chrome.extension.getURL("images/remove_icon.png") + "' class='control_icon' onclick='chat.sendDeleteShout(\"" + data.shout_id + "\");'/>&nbsp;");
+			controls.append("<img src='" + chrome.extension.getURL("images/ban_icon.png") + "' class='control_icon' onclick='chat.sendMessage(\"/ban " + data.uid + " 24h No Reason Specified\")'/>&nbsp;");
 		}
 		// Check if message passes blacklist filters
 		if(!check_blacklist_users(actualDisplayName) && !check_blacklist_words(data.plain_msg))
@@ -433,8 +439,10 @@ $(function(){
 
 	var socket = io.connect("https://chat.nulled.to");
 	var odd = false;
+	var isMod = false;
 	document.addEventListener('nulledplus_pass_recheck_shoutbox', function(e) {
-		var extracted_previous_messages = e.detail.reverse();
+		var extracted_previous_messages = e.detail[0].reverse();
+		isMod = e.detail[1];
 		$("img#shoutbox_loading").parent().fadeOut(function(){
 			var index = 0;
 			while(index < extracted_previous_messages.length) {

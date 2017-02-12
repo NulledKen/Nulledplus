@@ -86,6 +86,9 @@ td.message {
 td.user {
 	width: 100px;
 }
+tr {
+	border-bottom: 1px solid #252525;
+}
 tr.odd {
 	background-color: #252525;
 }
@@ -267,7 +270,7 @@ div.reputation_state {
 	width: 62%;
 }
 td.controls {
-	width: 50px;
+	width: 25px;
 }
 div.nulledplus_status {
 	background-color: #151515;

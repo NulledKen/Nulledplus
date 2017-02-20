@@ -309,10 +309,7 @@ $(function(){
 					var name_changes_table = $(data).contents().find("table.ipb_table > tbody").children("tr[class^='row']");
 					name_changes_table.each(function(index, element) {
 						var name = $(element).children("td").eq((index < name_changes_table.length - 1 ? 1 : 0)).text();
-						if(!name_changes.includes(name)) {
-							name_changes[name_changes.length] = name;
-							$("div.user_custom > div.main > ul").append("<li><span><span class='date'>[" + $(element).children("td.altrow").text() + "]</span> " + name + "</span></li>");
-						}
+						$("div.user_custom > div.main > ul").append("<li><span><span class='date'>[" + $(element).children("td.altrow").text() + "]</span> " + name + "</span></li>");
 					});
 					$("div#sbplus_modal_custom").dialog('option',
 						"position", {

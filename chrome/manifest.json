@@ -25,6 +25,5 @@
 		"sounds/*.mp3",
 		"images/*",
 		"js/extract_chatview.js"
-	],
-	"run_at": "document_end"
+	]
 }

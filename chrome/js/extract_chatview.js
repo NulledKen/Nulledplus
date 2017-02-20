@@ -15,3 +15,18 @@ setTimeout(function() {
 		});
 	};
 }, 1500);
+document.addEventListener('nulledplus_tagged', function(e){
+	if (Notification.permission !== "granted")
+		Notification.requestPermission();
+	else {
+		var notification = new Notification("Nulled+ Shoutbox", {
+			icon: 'https://www.nulled.to/favicon.ico',
+			body: e.detail[0] + " has tagged you in the shoutbox!",
+			silent: false
+		});
+		notification.onclick = function () {
+			window.focus();
+			notification.close();
+		};
+	}
+});

@@ -3,6 +3,9 @@ $(function(){
 	var userName = $("a#user_link").text().split(' ')[0];
 	console.log("Your Nulled ID: " + userID + ", Name: " + userName);
 
+	if (Notification.permission !== "granted")
+		Notification.requestPermission();
+
 	if(localStorage["nulledplus_shoutbox"] == undefined)
 		localStorage.setItem("nulledplus_shoutbox", JSON.stringify({"users":[], "words":[]}));
 	var parsed_blacklist = JSON.parse(localStorage["nulledplus_shoutbox"]);
@@ -95,7 +98,7 @@ $(function(){
 	// Custom context menu
 	$("<ul class='nulledplus_context_menu' data-shout data-userid data-userdisplayname><li class='user'></li><li class='total_shouts'>Loading..</li><li data-context='previous_names'><i class='fa fa-pencil' aria-hidden='true'></i> &nbsp;Previous Nicknames</li><li data-context='send_message'><i class='fa fa-comments-o' aria-hidden='true'></i> &nbsp;Send Message</li><li data-context='change_reputation'><i class='fa fa-thumbs-up' aria-hidden='true'></i> &nbsp;Change Reputation</li></ul>").appendTo("div.nulledplus_shoutbox");
 	// Options panel
-	$("div#index_stats").prepend("<div class='ipsBlockOuter' id='nulledplus_options_div' style='display: none;'><div id='nulledplus_options' class='maintitle'>Nulled+ Options</div><div id='nulledplus_options_content' style='display: none; padding: 10px;'><div><input type='button' value='users' name='blacklist_flipswitch' class='input_submit mpr checked' style='width: 48%;'/>&nbsp;<input type='button' value='words' class='input_submit' name='blacklist_flipswitch' style='width: 48%;'/></div><br><span id='blacklist_desc'>Blacklisted Users</span><br><input type='text' class='added_item input_text mpr'/><input type='button' class='add_item input_submit mpr' value='Add'/><br><ul class='shoutbox_blacklist'></ul><br><input type='checkbox' id='mark_on_tag'> Mark messages where i'm tagged<br><input type='checkbox' id='sound_on_tag'> Make sound when tagged (Inactive tab)<br><input type='checkbox' id='legendary'/> <span class='legendary'>Legendary</span></div></div>");
+	$("div#index_stats").prepend("<div class='ipsBlockOuter' id='nulledplus_options_div' style='display: none;'><div id='nulledplus_options' class='maintitle'>Nulled+ Options</div><div id='nulledplus_options_content' style='display: none; padding: 10px;'><div><input type='button' value='users' name='blacklist_flipswitch' class='input_submit mpr checked' style='width: 48%;'/>&nbsp;<input type='button' value='words' class='input_submit' name='blacklist_flipswitch' style='width: 48%;'/></div><br><span id='blacklist_desc'>Blacklisted Users</span><br><input type='text' class='added_item input_text mpr'/><input type='button' class='add_item input_submit mpr' value='Add'/><br><ul class='shoutbox_blacklist'></ul><br><h1 style='font-size: 16px; text-decoration: underline; margin-bottom: 6px;'>Tagging options:</h1><input type='checkbox' id='mark_on_tag'> Mark messages where i'm tagged<br><input type='checkbox' id='sound_on_tag'> Make sound when tagged (Inactive tab)<br><input type='checkbox' id='tag_desktop_notifications'> Desktop notification on tag<br><br><h1 style='font-size: 16px; text-decoration: underline; margin-bottom: 6px;'>Special:</h1><input type='checkbox' id='legendary'/> <span class='legendary'>Legendary</span></div></div>");
 	// User shoutbox custom
 	$("<div class='user_custom' id='sbplus_modal_custom' style='background-color: #252525; z-index: 99999;'><div class='description'></div><div class='main'></div></div>").appendTo("div.nulledplus_shoutbox");
 	$("div#sbplus_modal_custom").dialog({
@@ -117,12 +120,14 @@ $(function(){
 	$("input#sound_on_tag").prop("checked", (localStorage["tagsound"]  == "true" ? true : false));
 	$("input#mark_on_tag").prop("checked", (localStorage["tagmark"] == "true" ? true : false));
 	$("input#legendary").prop("checked", (localStorage["legendary"] == "true" ? true : false));
+	$("input#tag_desktop_notifications").prop("checked", (localStorage["tag_desktop_notifications"] == "true" ? true : false));
 	$("#nulledplus_options_div").slideDown();
 	array_to_textarea(blacklist_state);
 	// Events
 	$("#nulledplus_options").click(function(){ $("#nulledplus_options_content").slideToggle("slow"); });
 	$("#sound_on_tag").click(function(){ localStorage.setItem("tagsound", $("#sound_on_tag").prop("checked")); });
 	$("#mark_on_tag").click(function(){ localStorage.setItem("tagmark", $("#mark_on_tag").prop("checked")); });
+	$("#tag_desktop_notifications").click(function(){ localStorage.setItem("tag_desktop_notifications", $("#tag_desktop_notifications").prop("checked")); });
 	$("#legendary").click(function(){ localStorage.setItem("legendary", $("#legendary").prop("checked")); window.location.reload(); });
 	$("input[name='hide_method']").click(function() { localStorage.setItem("hide_method", $(this).prop('id')); });
 	$("input#shoutbox_input").keyup(function(event){
@@ -457,6 +462,20 @@ $(function(){
 		for(i = 0; i < tags.length; i++) {
 			if($(tags[i]).attr("href").split("#")[1].toLowerCase() == userName.toLowerCase()) {
 				added.addClass("tagged");
+				if(localStorage["tag_desktop_notifications"] == "true") {
+					if(!vis()) {
+						document.dispatchEvent(new CustomEvent('nulledplus_tagged', {
+							detail: [data.displayName]
+						}));
+					}
+				}
+				if(localStorage["tagsound"] == "true") {
+					if(!vis()) {
+						var notificationSound = new Audio();
+						notificationSound.src = chrome.extension.getURL("sounds/notification.mp3");
+						notificationSound.play();
+					}
+				}
 				break;
 			}
 		}

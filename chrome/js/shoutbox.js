@@ -252,7 +252,10 @@ $(function(){
 	});
 	$(document).on("contextmenu", "td.user > a", function(event){
 		event.preventDefault();
-		$("ul.nulledplus_context_menu").finish().toggle(100).css({ top: (event.pageY - 265) + "px", left: (event.pageX - 25) + "px" });
+		if($("button#fullscreen").length)
+			$("ul.nulledplus_context_menu").finish().toggle(100).css({ top: (event.pageY - 265) + "px", left: (event.pageX - 25) + "px" });
+		else
+			$("ul.nulledplus_context_menu").finish().toggle(100).css({ top: (event.pageY) + "px", left: (event.pageX) + "px" });
 		$(this).css("background-color", "black");
 		var contextUserID = $(this).attr("class").split("_")[1];
 		$("ul.nulledplus_context_menu > li.user").html("<span class='actual_user'>" + $(this).html() + "</span> <span class='user_id'>{" + contextUserID + "}</span>");

@@ -4,7 +4,7 @@ $(function(){
 	$.get("https://www.nulled.to/topic/221756-nulled-a-nulled-browser-extension-chrome-firefox", function(data){
 		var last_version_released = $(data).contents().find("div.maintitle.clearfix.clear").children("span").text().trim().split("v")[1];
 		var outdated = false;
-		if(last_version_released != current_version)
+		if(last_version_released > current_version)
 			outdated = true;
 		nulledplus_state.css("background-color", (outdated ? "rgba(163, 0, 0, 0.74)" : "rgba(63, 191, 76, 0.51)"));
 		nulledplus_state.css("border-color", (outdated ? "#A30000" : "#00A300"));

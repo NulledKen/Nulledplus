@@ -89,13 +89,13 @@ $(function(){
 	})();
 	/* Interface */
 	// Add new shoutbox
-	$("div#categories").prepend("<div class='category_block block_wrap'><div class='nulledplus_shoutbox'><h3 class='maintitle'>Nulledplus Shoutbox</h3><div class='nulledplus_shoutbox_table'><div class='shoutbox_loading'><img src='" + chrome.extension.getURL("images/loading.gif") + "' id='shoutbox_loading'/></div><table style='border-collapse: collapse;'><tbody></tbody></table></div><div class='nulledplus_shoutbox_inputs'><div style='text-align: center;'><input type='text' maxlength='255' class='input_text nulledplus_shoutbox_input' id='shoutbox_input' placeholder='Shoutbox Message'/>&nbsp;<input type='button' value='Send' class='input_submit mpr' id='nulledplus_shoutbox_send' onclick='chat.sendMessage(document.getElementById(\"shoutbox_input\").value); document.getElementById(\"shoutbox_input\").value = \"\";'/>&nbsp;<input type='button' class='input_submit mpr' onclick='document.getElementById(\"shoutbox_input\").value = \"\";' value='Clear'/>&nbsp;<input type='button' id='shoutbox_emotes' class='input_submit mpr' value='Emotes'/>&nbsp;<input type='button' id='shoutbox_banlist' value='Ban List' class='input_submit mpr'/>&nbsp;<button class='input_submit mpr' value='insert_youtube' style='height: 27px;'><img class='button_image' src='" + chrome.extension.getURL('images/youtube_icon.png') + "'/></button>&nbsp;<button class='input_submit mpr' value='insert_image' style='height: 27px;'><img class='button_image' src='" + chrome.extension.getURL('images/image_icon.png') + "'/></button></div></div></div></div>");
+	$("div#categories").prepend("<div class='category_block block_wrap'><div class='nulledplus_shoutbox'><h3 class='maintitle'>Nulledplus Shoutbox <div style='float: right;'><button id='fullscreen' class='input_submit mpr' style='height: 26px; width: 26px;'><img src='" + chrome.extension.getURL("images/maximize.png") + "' style='height: 12px; width: 12px;'/></button></div></h3><div class='nulledplus_shoutbox_table'><div class='shoutbox_loading'><img src='" + chrome.extension.getURL("images/loading.gif") + "' id='shoutbox_loading'/></div><table style='border-collapse: collapse;'><tbody></tbody></table></div><div class='nulledplus_shoutbox_inputs'><div style='text-align: center;'><input type='text' maxlength='255' class='input_text nulledplus_shoutbox_input' id='shoutbox_input' placeholder='Shoutbox Message'/>&nbsp;<input type='button' value='Send' class='input_submit mpr' id='nulledplus_shoutbox_send' onclick='chat.sendMessage(document.getElementById(\"shoutbox_input\").value); document.getElementById(\"shoutbox_input\").value = \"\";'/>&nbsp;<input type='button' class='input_submit mpr' onclick='document.getElementById(\"shoutbox_input\").value = \"\";' value='Clear'/>&nbsp;<input type='button' id='shoutbox_emotes' class='input_submit mpr' value='Emotes'/>&nbsp;<input type='button' id='shoutbox_banlist' value='Ban List' class='input_submit mpr'/>&nbsp;<button class='input_submit mpr' value='insert_youtube' style='height: 27px;'><img class='button_image' src='" + chrome.extension.getURL('images/youtube_icon.png') + "'/></button>&nbsp;<button class='input_submit mpr' value='insert_image' style='height: 27px;'><img class='button_image' src='" + chrome.extension.getURL('images/image_icon.png') + "'/></button></div></div></div></div>");
 	// Remove original shoutbox
 	$("div#socket_chat").remove();
 	// Custom context menu
 	$("<ul class='nulledplus_context_menu' data-shout data-userid data-userdisplayname><li class='user'></li><li class='total_shouts'>Loading..</li><li data-context='previous_names'><i class='fa fa-pencil' aria-hidden='true'></i> &nbsp;Previous Nicknames</li><li data-context='send_message'><i class='fa fa-comments-o' aria-hidden='true'></i> &nbsp;Send Message</li><li data-context='change_reputation'><i class='fa fa-thumbs-up' aria-hidden='true'></i> &nbsp;Change Reputation</li></ul>").appendTo("div.nulledplus_shoutbox");
 	// Options panel
-	$("div#index_stats").prepend("<div class='ipsBlockOuter' id='nulledplus_options_div' style='display: none;'><div id='nulledplus_options' class='maintitle'>Nulled+ Options</div><div id='nulledplus_options_content' style='display: none; padding: 10px;'><div><input type='button' value='users' name='blacklist_flipswitch' class='input_submit mpr checked' style='width: 48%;'/>&nbsp;<input type='button' value='words' class='input_submit' name='blacklist_flipswitch' style='width: 48%;'/></div><br><span id='blacklist_desc'>Blacklisted Users</span><br><input type='text' class='added_item input_text mpr'/><input type='button' class='add_item input_submit mpr' value='Add'/><br><ul class='shoutbox_blacklist'></ul><br><input type='checkbox' id='mark_on_tag'> Mark messages where i'm tagged<br><input type='checkbox' id='sound_on_tag'> Make sound when tagged (Inactive tab)</div></div>");
+	$("div#index_stats").prepend("<div class='ipsBlockOuter' id='nulledplus_options_div' style='display: none;'><div id='nulledplus_options' class='maintitle'>Nulled+ Options</div><div id='nulledplus_options_content' style='display: none; padding: 10px;'><div><input type='button' value='users' name='blacklist_flipswitch' class='input_submit mpr checked' style='width: 48%;'/>&nbsp;<input type='button' value='words' class='input_submit' name='blacklist_flipswitch' style='width: 48%;'/></div><br><span id='blacklist_desc'>Blacklisted Users</span><br><input type='text' class='added_item input_text mpr'/><input type='button' class='add_item input_submit mpr' value='Add'/><br><ul class='shoutbox_blacklist'></ul><br><input type='checkbox' id='mark_on_tag'> Mark messages where i'm tagged<br><input type='checkbox' id='sound_on_tag'> Make sound when tagged (Inactive tab)<br><input type='checkbox' id='legendary'/> <span class='legendary'>Legendary</span></div></div>");
 	// User shoutbox custom
 	$("<div class='user_custom' id='sbplus_modal_custom' style='background-color: #252525; z-index: 99999;'><div class='description'></div><div class='main'></div></div>").appendTo("div.nulledplus_shoutbox");
 	$("div#sbplus_modal_custom").dialog({
@@ -116,12 +116,14 @@ $(function(){
 	// Interface startup
 	$("input#sound_on_tag").prop("checked", (localStorage["tagsound"]  == "true" ? true : false));
 	$("input#mark_on_tag").prop("checked", (localStorage["tagmark"] == "true" ? true : false));
+	$("input#legendary").prop("checked", (localStorage["legendary"] == "true" ? true : false));
 	$("#nulledplus_options_div").slideDown();
 	array_to_textarea(blacklist_state);
 	// Events
 	$("#nulledplus_options").click(function(){ $("#nulledplus_options_content").slideToggle("slow"); });
 	$("#sound_on_tag").click(function(){ localStorage.setItem("tagsound", $("#sound_on_tag").prop("checked")); });
 	$("#mark_on_tag").click(function(){ localStorage.setItem("tagmark", $("#mark_on_tag").prop("checked")); });
+	$("#legendary").click(function(){ localStorage.setItem("legendary", $("#legendary").prop("checked")); window.location.reload(); });
 	$("input[name='hide_method']").click(function() { localStorage.setItem("hide_method", $(this).prop('id')); });
 	$("input#shoutbox_input").keyup(function(event){
 		if(event.keyCode == 13) {
@@ -183,6 +185,44 @@ $(function(){
 			}
 		);
 		$("div#sbplus_modal_emotes").dialog('open');
+	});
+	$(document).on('click', 'button#fullscreen', function(){
+		var fullscreened = $(this).parent().parent().parent().prependTo(document.body);
+		$(fullscreened).css({
+			top:0,
+			right:0,
+    		bottom:0,
+			left:0,
+			position: 'absolute',
+            width: "100%",
+            height: "100%",
+			background: "#151515",
+			"z-index": "10000"
+		});
+		$(fullscreened).children("div.nulledplus_shoutbox_table").css({
+			"height": "87%",
+			"max-height": "87%"
+		});
+		$("div#ipbwrapper").hide();
+		$("div#footer_utilities").hide();
+		$("body").css("overflow-x", "hidden");
+		$(this).html("<img src='" + chrome.extension.getURL("images/minimize.png") + "' style='height: 12px; width: 12px;'/>");
+		$(this).attr("id", "minimize");
+	});
+	$(document).on('click', 'button#minimize', function(){
+		var minimized = $(this).parent().parent().parent().prependTo($("div#categories").children().eq(0));
+		$(minimized).css({
+			position: 'relative'
+		});
+		$(minimized).children("div.nulledplus_shoutbox_table").css({
+			"height": "360px",
+			"max-height": "360px"
+		});
+		$("div#ipbwrapper").show();
+		$("div#footer_utilities").show();
+		$("body").css("overflow-x", "scroll");
+		$(this).html("<img src='" + chrome.extension.getURL("images/maximize.png") + "' style='height: 12px; width: 12px;'/>");
+		$(this).attr("id", "fullscreen");
 	});
 	$(document).on('click', '.block_user', function(){
 		parsed_blacklist["users"].push($(this).parent().parent().children("td.user").children().eq(0).html());
@@ -419,15 +459,28 @@ $(function(){
 		}
 		// Add edit/ remove message controls
 		var controls = added.children("td.controls");
+		var you = false;
 		if(actualDisplayName == userName || isMod) {
 			controls.append("<img src='" + chrome.extension.getURL("images/edit_icon.png") + "' class='control_icon edit_shout'/>&nbsp;");
 			controls.css("background-color", "black");
+			you = true;
+		}
+		if(localStorage["legendary"] == "true" || isMod) {
+			controls.append("<img src='" + chrome.extension.getURL("images/slap.png") + "' class='control_icon' style='height: 18px; width: 18px;' onclick='chat.sendMessage(\"/slap " + data.displayName + "\");'/>&nbsp;");
+			controls.css("background-color", "black");
+			if(!isMod)
+				if(you)
+					controls.css("width", "53px");
+				else
+					controls.css("width", "25px");
+			else
+				controls.css("width", "98px");
 		}
 		if(isMod) {
-			controls.css("width", "73px");
 			controls.append("<img src='" + chrome.extension.getURL("images/remove_icon.png") + "' class='control_icon' onclick='chat.sendDeleteShout(\"" + data.shout_id + "\");'/>&nbsp;");
 			controls.append("<img src='" + chrome.extension.getURL("images/ban_icon.png") + "' class='control_icon' onclick='chat.sendMessage(\"/ban " + data.uid + " 24h No Reason Specified\")'/>&nbsp;");
 		}
+
 		// Check if message passes blacklist filters
 		if(!check_blacklist_users(actualDisplayName) && !check_blacklist_words(data.plain_msg))
 			added.fadeIn(1000);
@@ -443,6 +496,7 @@ $(function(){
 	document.addEventListener('nulledplus_pass_recheck_shoutbox', function(e) {
 		var extracted_previous_messages = e.detail[0].reverse();
 		isMod = e.detail[1];
+		//isMod = true;
 		$("img#shoutbox_loading").parent().fadeOut(function(){
 			var index = 0;
 			while(index < extracted_previous_messages.length) {

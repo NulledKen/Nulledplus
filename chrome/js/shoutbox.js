@@ -290,6 +290,43 @@ $(function(){
 		$("div#sbplus_modal_custom").dialog("option", "title", "Edit Shout #" + shout_id);
 		$("div#sbplus_modal_custom").dialog("open");
 	});
+			$(document).on('click', 'td.controls > img.kappa_shout', function(){
+		var shout = $(this).parent().parent();
+		var shout_id = shout.attr("id");
+		var kappaCode = 'chat.sendEditShout(\"' + shout_id + '\", \"kappa\");';
+        var script = document.createElement('script');
+        var code = document.createTextNode('(function() {' + kappaCode + '})();');
+		script.appendChild(code);
+		(document.body || document.head).appendChild(script);
+	});
+function KeyPress(e) {
+      var evtobj = window.event? event : e
+	  var meme = "kappa";
+      if (evtobj.keyCode == 90 && evtobj.ctrlKey)
+      { 
+        meme = "kappa";
+      }
+	  if (evtobj.keyCode == 88 && evtobj.ctrlKey)
+      { 
+        meme = "rainbowkappa";
+      }
+	  if (evtobj.keyCode == 67 && evtobj.ctrlKey)
+      { 
+        meme = ":kek:";
+      }
+	  if (evtobj.keyCode == 90 && evtobj.ctrlKey || evtobj.keyCode == 88 && evtobj.ctrlKey || evtobj.keyCode == 67 && evtobj.ctrlKey)
+      { 
+        var user_id = "user_" + $("a#user_link").attr("href").split("-")[0].split("user")[1].substring(1);
+		var shout = document.getElementsByClassName(user_id)[0].parentNode.parentNode;
+		var shout_id = shout.getAttribute("id");
+		var memeCode = 'chat.sendEditShout(\"' + shout_id + '\", \"' + meme +'\");';
+        var script = document.createElement('script');
+        var code = document.createTextNode('(function() {' + memeCode + '})();');
+		script.appendChild(code);
+		(document.body || document.head).appendChild(script);
+      }
+}
+document.onkeydown = KeyPress;
 	$(document).on("click", "ul.nulledplus_context_menu > li", function(event){
 		var data_userID = $("ul.nulledplus_context_menu").attr("data-userid");
 		var data_userDisplayName = $("ul.nulledplus_context_menu").attr("data-userdisplayname");
